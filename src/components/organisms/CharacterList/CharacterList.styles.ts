@@ -7,6 +7,6 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     width: '100%',
-    paddingHorizontal: 20,
+    padding: 20,
   },
 });

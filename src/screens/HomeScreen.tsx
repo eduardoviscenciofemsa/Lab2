@@ -1,17 +1,22 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {ActivityIndicator, SafeAreaView} from 'react-native';
 
-import CharacterList from '../components/organisms/CharacterList';
-import {useRickAndMorty} from '../hooks/useRickNMorty';
+import {CharacterList} from '../components/organisms';
+
+import {useRickAndMorty} from '../hooks';
 
 import {styles} from './HomeScreen.styles';
 
 const HomeScreen = () => {
-  const {characters} = useRickAndMorty();
+  const {loading, characters} = useRickAndMorty();
 
   return (
     <SafeAreaView style={styles.container}>
-      <CharacterList characters={characters} />
+      {!loading && characters.length ? (
+        <CharacterList characters={characters} />
+      ) : (
+        <ActivityIndicator size="small" color="#00ff00" />
+      )}
     </SafeAreaView>
   );
 };

@@ -1,17 +1,19 @@
 import {useRef, useState} from 'react';
 import {Animated, PanResponder} from 'react-native';
 
-export const useAnimated = () => {
+type PropsT = {
+  onFinished: () => void;
+};
+
+export const useAnimated = ({onFinished}: PropsT) => {
   const pan = useRef(new Animated.ValueXY({x: 0, y: 0})).current;
 
   const [runningSpring, setRunningSpring] = useState(false);
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gesture) => {
-        console.log('gesture:', gesture);
-        return true;
-      },
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderTerminationRequest: () => false,
       onPanResponderMove: Animated.event([null, {dx: pan.x}], {
         useNativeDriver: false,
       }),
@@ -30,6 +32,7 @@ export const useAnimated = () => {
         }).start(({finished}) => {
           if (finished) {
             setRunningSpring(false);
+            onFinished();
           }
         });
       },
