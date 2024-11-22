@@ -11,9 +11,9 @@ const EmptyState = ({refetch}: PropsT) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.text, styles.spanText]}>Oops</Text>
-      <Text style={styles.text}>Todos los personajes han sido eliminados</Text>
+      <Text style={styles.text}>All characters have been deleted</Text>
       <TouchableOpacity onPress={refetch} style={styles.button}>
-        <Text style={styles.buttonText}>Recargar</Text>
+        <Text style={styles.buttonText}>Reload</Text>
       </TouchableOpacity>
     </View>
   );
