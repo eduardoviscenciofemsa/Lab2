@@ -28,7 +28,7 @@ const Card = memo(({id, name, image, onSwipe}: CardProps) => {
   return (
     <Animated.View
       entering={FadeIn.duration(500)}
-      exiting={FadeOut.duration(5000)}>
+      exiting={FadeOut.duration(500)}>
       <RNAnimated.View
         {...panResponder.panHandlers}
         style={[pan.getLayout(), styles.cardItem]}>
