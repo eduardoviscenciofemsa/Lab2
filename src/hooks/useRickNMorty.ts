@@ -22,5 +22,6 @@ export const useRickAndMorty = () => {
   return {
     loading,
     characters,
+    fetchData: fetchCharacters,
   };
 };

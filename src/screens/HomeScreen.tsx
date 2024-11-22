@@ -8,12 +8,12 @@ import {useRickAndMorty} from '../hooks';
 import {styles} from './HomeScreen.styles';
 
 const HomeScreen = () => {
-  const {loading, characters} = useRickAndMorty();
+  const {loading, characters, fetchData} = useRickAndMorty();
 
   return (
     <SafeAreaView style={styles.container}>
       {!loading && characters.length ? (
-        <CharacterList characters={characters} />
+        <CharacterList characters={characters} refetch={fetchData} />
       ) : (
         <ActivityIndicator size="small" color="#00ff00" />
       )}

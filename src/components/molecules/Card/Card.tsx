@@ -4,8 +4,14 @@ import {
   Animated as RNAnimated,
   View,
   ActivityIndicator,
+  ViewToken,
 } from 'react-native';
-import Animated, {LinearTransition} from 'react-native-reanimated';
+import Animated, {
+  LinearTransition,
+  SharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 
 import type {Character} from '../../../types/common/UserCharacter.type';
@@ -15,18 +21,29 @@ import {useAnimated} from '../../../hooks/useAnimated';
 import {styles} from './Card.styles';
 
 type CardProps = Pick<Character, 'id' | 'name' | 'image'> & {
+  viewableItems: SharedValue<ViewToken<Character>[]>;
   onSwipe: (id: number) => void;
 };
 
-const Card = memo(({id, name, image, onSwipe}: CardProps) => {
+const Card = memo(({id, name, image, viewableItems, onSwipe}: CardProps) => {
   const handleSwipe = () => onSwipe(id);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const isVisible = !!viewableItems.value
+      .filter(element => element.isViewable)
+      .find(element => element.item.id === id);
+
+    return {
+      opacity: withTiming(isVisible ? 1 : 0, {duration: 500}),
+    };
+  });
 
   const {pan, panResponder, runningSpring} = useAnimated({
     onFinished: handleSwipe,
   });
 
   return (
-    <Animated.View layout={LinearTransition}>
+    <Animated.View layout={LinearTransition} style={animatedStyle}>
       <RNAnimated.View
         {...panResponder.panHandlers}
         style={[pan.getLayout(), styles.cardItem]}>

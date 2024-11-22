@@ -10,4 +10,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  spanText: {
+    color: '#00ff00',
+  },
 });

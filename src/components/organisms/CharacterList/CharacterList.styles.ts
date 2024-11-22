@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   contentContainer: {
+    flexGrow: 1,
     width: '100%',
     padding: 20,
   },

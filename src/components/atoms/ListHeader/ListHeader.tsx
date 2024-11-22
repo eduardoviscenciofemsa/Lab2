@@ -6,7 +6,9 @@ import {styles} from './ListHeader.styles';
 const ListHeader = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Swipe to delete</Text>
+      <Text style={styles.text}>
+        Swipe to <Text style={styles.spanText}>delete</Text>
+      </Text>
     </View>
   );
 };
