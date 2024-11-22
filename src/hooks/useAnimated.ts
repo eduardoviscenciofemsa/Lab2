@@ -24,17 +24,24 @@ export const useAnimated = ({onFinished}: PropsT) => {
 
         if (gestureState.dx > 120 || gestureState.dx < -120) {
           setRunningSpring(true);
+
+          Animated.spring(pan, {
+            toValue: {x: 0, y: 0},
+            useNativeDriver: false,
+          }).start(({finished}) => {
+            if (finished) {
+              setRunningSpring(false);
+              onFinished();
+            }
+          });
+
+          return;
         }
 
         Animated.spring(pan, {
           toValue: {x: 0, y: 0},
           useNativeDriver: false,
-        }).start(({finished}) => {
-          if (finished) {
-            setRunningSpring(false);
-            onFinished();
-          }
-        });
+        }).start();
       },
     }),
   ).current;

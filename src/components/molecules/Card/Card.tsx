@@ -5,7 +5,7 @@ import {
   View,
   ActivityIndicator,
 } from 'react-native';
-import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import Animated, {LinearTransition} from 'react-native-reanimated';
 import FastImage from 'react-native-fast-image';
 
 import type {Character} from '../../../types/common/UserCharacter.type';
@@ -26,9 +26,7 @@ const Card = memo(({id, name, image, onSwipe}: CardProps) => {
   });
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(500)}
-      exiting={FadeOut.duration(500)}>
+    <Animated.View layout={LinearTransition}>
       <RNAnimated.View
         {...panResponder.panHandlers}
         style={[pan.getLayout(), styles.cardItem]}>
